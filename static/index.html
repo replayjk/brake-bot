@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>브레이크 검사 도우미</title>
+</head>
+<body style="padding: 20px; font-family: sans-serif;">
+  <h2>브레이크 검사 도우미 챗봇</h2>
+  <input id="question" type="text" placeholder="궁금한 내용을 입력하세요" style="width: 100%; padding: 10px;">
+  <button onclick="send()" style="padding: 10px 20px; margin-top: 10px;">질문</button>
+  <div id="answer" style="margin-top: 20px;"></div>
+
+  <script>
+    async function send() {
+      const q = document.getElementById("question").value;
+      const res = await fetch("/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: q })
+      });
+      const data = await res.json();
+      document.getElementById("answer").innerText = "답변: " + data.answer;
+    }
+  </script>
+</body>
+</html>
