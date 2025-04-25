@@ -20,7 +20,7 @@ class Question(BaseModel):
 with open("data/docs.txt", encoding="utf-8") as f:
     text = f.read()
 docs = CharacterTextSplitter(chunk_size=500, chunk_overlap=50).create_documents([text])
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-mpnet-base-v2")
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 vectorstore = FAISS.from_documents(docs, embeddings)
 
 qa = RetrievalQA.from_chain_type(
